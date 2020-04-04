@@ -36,7 +36,7 @@ setup(
         'Cython>=0.29',
         'numpy>=1.18',
     ],
-    packages=['cyzil'],
+    packages=find_packages(include=['bleu', 'edit_distance']),
     ext_modules = cythonize(app),
     zip_safe=False,
     include_dirs = [np.get_include()]
