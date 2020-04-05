@@ -25,9 +25,9 @@ bleu.bleu_points([reference], [candidate], max_ngram=4)
 # edit_distance_sentence takes a list of strings
 e.edit_distance_sentence(reference, candidate)
 # edit_distance_corpus takes a list of lists
-e.edit_distance_corpus([reference], [candidate], max_ngram=4)
+e.edit_distance_corpus([reference], [candidate])
 # edit_distance_points takes a list of lists
-e.edit_distance_points([reference], [candidate], max_ngram=4)
+e.edit_distance_points([reference], [candidate])
 
 
 ```
