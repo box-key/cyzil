@@ -16,17 +16,23 @@ reference = 'this is a test'.split()
 candidate = 'this is a test'.split()
 
 # bleu_sentence takes a list of strings
+# output: [precision, brevity penalty, bleu score]
 bleu.bleu_sentence(reference, candidate, max_ngram=4)
 # bleu_corpus takes a list of lists
+# output: [precision, brevity penalty, bleu score]
 bleu.bleu_corpus([reference], [candidate], max_ngram=4)
 # bleu_points takes a list of lists
+# output: [precision, brevity penalty, bleu score] * N, where N is the number of points
 bleu.bleu_points([reference], [candidate], max_ngram=4)
 
 # edit_distance_sentence takes a list of strings
+# output: [edit distance, normalized edit distance]
 e.edit_distance_sentence(reference, candidate)
 # edit_distance_corpus takes a list of lists
+# output: [edit distance, normalized edit distance]
 e.edit_distance_corpus([reference], [candidate])
 # edit_distance_points takes a list of lists
+# output: [edit distance, normalized edit distance] * N, where N is the number of points
 e.edit_distance_points([reference], [candidate])
 
 
