@@ -44,8 +44,6 @@ e.edit_distance_corpus([reference], [candidate])
 # it computes edit distance of each sentence in corpus
 # output: [edit distance, normalized edit distance] * N, where N is the number of points
 e.edit_distance_points([reference], [candidate])
-
-
 ```
 
 # Testing
