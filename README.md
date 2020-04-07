@@ -32,7 +32,7 @@ bleu.bleu_points([reference], [candidate], max_ngram=4)
 
 # edit_distance_sentence takes a list of strings
 # it computes edit distance of input sentence
-# output: [edit distance, normalized edit distance]
+# output: int
 e.edit_distance_sentence(reference, candidate)
 
 # edit_distance_corpus takes a list of lists
@@ -52,5 +52,4 @@ e.edit_distance_points([reference], [candidate])
 
 1. `git clone` this repository
 1. `cd` into the repository
-1. run `python setup.py develop`. this will create local files under the root.
-1. run `python cyzil_test.py`
+1. run `pytest`. If you don't have `pytest`, run `pip install pytest` first.
