@@ -9,8 +9,7 @@ So far, it covers [edit distance (Levenstein Distance)](https://en.wikipedia.org
 # Usage
 
 ``` python
-import bleu
-import edit_distance as e
+import cyzil
 
 reference = ['this', 'is', 'a', 'test']
 candidate = ['this', 'is', 'a', 'test']
@@ -18,32 +17,32 @@ candidate = ['this', 'is', 'a', 'test']
 # bleu_sentence takes a list of strings
 # it computes bleu score of input sentence
 # output: [precision, brevity penalty, bleu score]
-bleu.bleu_sentence(reference, candidate, max_ngram=4)
+cyzil.bleu_sentence(reference, candidate, max_ngram=4)
 
 # bleu_corpus takes a list of lists
 # it computes the average bleu score of input corpus
 # output: [precision, brevity penalty, bleu score]
-bleu.bleu_corpus([reference], [candidate], max_ngram=4)
+cyzil.bleu_corpus([reference], [candidate], max_ngram=4)
 
 # bleu_points takes a list of lists
 # it computes bleu score of each sentence in corpus
 # output: [precision, brevity penalty, bleu score] * N, where N is the number of points
-bleu.bleu_points([reference], [candidate], max_ngram=4)
+cyzil.bleu_points([reference], [candidate], max_ngram=4)
 
 # edit_distance_sentence takes a list of strings
 # it computes edit distance of input sentence
 # output: int
-e.edit_distance_sentence(reference, candidate)
+cyzil.edit_distance_sentence(reference, candidate)
 
 # edit_distance_corpus takes a list of lists
 # it computes the average edit distance of input corpus
 # output: [edit distance, normalized edit distance]
-e.edit_distance_corpus([reference], [candidate])
+cyzil.edit_distance_corpus([reference], [candidate])
 
 # edit_distance_points takes a list of lists
 # it computes edit distance of each sentence in corpus
 # output: [edit distance, normalized edit distance] * N, where N is the number of points
-e.edit_distance_points([reference], [candidate])
+cyzil.edit_distance_points([reference], [candidate])
 ```
 
 # Testing
