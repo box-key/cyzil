@@ -124,7 +124,7 @@ cpdef vector[vector[DTYPE]] bleu_points(list reference_corpus,
         'reference corpus should be a list of lists'
   assert isinstance(candidate_corpus[0], list), \
         'candidate corpus should be a list of lists'
-  # corpus_score[:, 0]: edit distance, corpus_score[:, 1]: normalized edit distance
+  # points[:, 0]: precision, points[:, 1]: bp, points[:, 2]: bleu score
   cdef vector[vector[DTYPE]] points
   points.reserve(len(reference_corpus))
   cdef vector[DTYPE] sentence_score

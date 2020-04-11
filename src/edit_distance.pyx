@@ -70,6 +70,7 @@ cpdef vector[DTYPE] edit_distance_corpus(list reference_corpus,
   corpus_score[1] /= len(reference_corpus)
   return corpus_score
 
+
 cpdef vector[vector[DTYPE]] edit_distance_points(list reference_corpus,
                                                  list candidate_corpus):
   assert len(reference_corpus)==len(candidate_corpus), \
@@ -78,7 +79,7 @@ cpdef vector[vector[DTYPE]] edit_distance_points(list reference_corpus,
         'reference corpus should be a list of lists'
   assert isinstance(candidate_corpus[0], list), \
         'candidate corpus should be a list of lists'
-  # corpus_score[:, 0]: edit distance, corpus_score[:, 1]: normalized edit distance
+  # points[:, 0]: edit distance, points[:, 1]: normalized edit distance
   cdef vector[vector[DTYPE]] points
   points.reserve(len(reference_corpus))
   cdef int point_score
