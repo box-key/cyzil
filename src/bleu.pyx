@@ -1,25 +1,26 @@
-import numpy as np
-cimport numpy as np
 from libcpp.vector cimport vector
 from libcpp.string cimport string
-from libcpp.map cimport map
+from libcpp.unordered_map cimport unordered_map
+from libc.math cimport exp
+from libc.math cimport log
 
 
-DTYPE = np.float32
-ctypedef np.float32_t DTYPE_t
+ctypedef float DTYPE
+# Delimitor to store a ngram token
+# Used to count ngram order
 cdef string DELIM = ' '
 
 
-cpdef vector[string] _copy_list(list data):
-  cdef vector[string] _data
-  for s in data:
-    _data.push_back(s.encode("utf-8"))
+# if I can cast input type, i don't need this method
+cpdef vector[string] _list2vec(list data):
+  cdef vector[string] _data = [token.encode("utf-8") for token in data]
   return _data
 
 
-cpdef map[string, int] _get_overlap(map[string, int] m1,
-                                    map[string, int] m2):
-  cdef map[string, int] overlap
+# if input is const, I can't use for loop
+cpdef unordered_map[string, int] _get_overlap(unordered_map[string, int] &m1,
+                                              unordered_map[string, int] &m2):
+  cdef unordered_map[string, int] overlap
   cdef int c2
   # store elements appear both in m1 and m2
   for t1, c1 in m1:
@@ -30,9 +31,10 @@ cpdef map[string, int] _get_overlap(map[string, int] m1,
   return overlap
 
 
-cpdef map[string, int] _count_ngram(vector[string] sentence, int max_order):
+cpdef unordered_map[string, int] _count_ngram(const vector[string] &sentence,
+                                              int max_order):
   cdef int size = sentence.size()
-  cdef map[string, int] ngram_counts
+  cdef unordered_map[string, int] ngram_counts
   cdef string ngram
   # Iterate through all orders of ngram
   for order in range(1, max_order + 1):
@@ -48,7 +50,7 @@ cpdef map[string, int] _count_ngram(vector[string] sentence, int max_order):
   return ngram_counts
 
 
-cpdef vector[float] bleu_sentence(list reference,
+cpdef vector[DTYPE] bleu_sentence(list reference,
                                   list candidate,
                                   int max_ngram):
   if (len(reference) == 0) or (len(candidate) == 0):
@@ -60,7 +62,7 @@ cpdef vector[float] bleu_sentence(list reference,
   return bleu_corpus([reference], [candidate], max_ngram)
 
 
-cpdef vector[float] bleu_corpus(list reference_corpus,
+cpdef vector[DTYPE] bleu_corpus(list reference_corpus,
                                 list candidate_corpus,
                                 int max_ngram):
   assert len(reference_corpus)==len(candidate_corpus), \
@@ -70,19 +72,19 @@ cpdef vector[float] bleu_corpus(list reference_corpus,
   assert isinstance(candidate_corpus[0], list), \
         'candidate corpus should be a list of lists'
   # corpus_score[0]: precision, corpus_score[1]: bp, corpus_score[2]: bleu
-  cdef np.ndarray[DTYPE_t, ndim=1] clipped_count = np.zeros(max_ngram, dtype=DTYPE)
-  cdef np.ndarray[DTYPE_t, ndim=1] clip_norm = np.zeros(max_ngram, dtype=DTYPE)
+  cdef vector[DTYPE] clipped_count = [0.0]*max_ngram
+  cdef vector[DTYPE] clip_norm = [0.0]*max_ngram
   cdef vector[string] _reference
   cdef vector[string] _candidate
-  cdef map[string, int] reference_count
-  cdef map[string, int] candidate_count
-  cdef map[string, int] overlap
+  cdef unordered_map[string, int] reference_count
+  cdef unordered_map[string, int] candidate_count
+  cdef unordered_map[string, int] overlap
   cdef long ref_len = 0
   cdef long cand_len = 0
   # Iterate through corpus
   for reference, candidate in zip(reference_corpus, candidate_corpus):
-    _reference = _copy_list(reference)
-    _candidate = _copy_list(candidate)
+    _reference = _list2vec(reference)
+    _candidate = _list2vec(candidate)
     ref_len += _reference.size()
     cand_len += _candidate.size()
     # count ngrams in reference and candidate
@@ -92,30 +94,30 @@ cpdef vector[float] bleu_corpus(list reference_corpus,
     overlap = _get_overlap(reference_count, candidate_count)
     # count the occurence of ngram tokens
     for ngram_token, count in overlap:
-      clipped_count[len(nram_token.split()) - 1] += count
+      # -2 as offset, e.g. 'I am '.split() = ['I', 'am', '']
+      clipped_count[len(ngram_token.split(DELIM)) - 2] += count
     for order in range(max_ngram):
       clip_norm[order] += max(_candidate.size() - order, 0)
-  cdef float precision
-  cdef float bp
+  cdef vector[DTYPE] norm_counts
+  cdef DTYPE precision = 0.0
+  cdef DTYPE log_sum = 0.0
   # avoid division by 0
   if min(clipped_count):
-    clipped_count /= clip_norm
-    precision = np.exp(<float> np.log(clipped_count).sum()/max_ngram)
-  else:
-    precision = 0
-  bp = np.exp(min(1.-(<float> ref_len/cand_len), 0))
+    # normalize each count
+    norm_counts = [<DTYPE> c/n for c, n in zip(clipped_count, clip_norm)]
+    for count in norm_counts:
+      log_sum += <DTYPE> log(count)/max_ngram
+    precision = exp(log_sum)
+  cdef float bp = exp(min(1.-(<DTYPE> ref_len/cand_len), 0))
   # corpus_score[0]: precision, corpus_score[1]: bp, corpus_score[2]: bleu
-  cdef vector[float] corpus_score
+  cdef vector[DTYPE] corpus_score = [precision, bp, precision*bp]
   corpus_score.reserve(3)
-  corpus_score.push_back(precision)
-  corpus_score.push_back(bp)
-  corpus_score.push_back(precision*bp)
   return corpus_score
 
 
-cpdef np.ndarray bleu_points(list reference_corpus,
-                             list candidate_corpus,
-                             int max_ngram):
+cpdef vector[vector[DTYPE]] bleu_points(list reference_corpus,
+                                        list candidate_corpus,
+                                        int max_ngram):
   assert len(reference_corpus)==len(candidate_corpus), \
         'reference corpus and candiate corpus should have the same length'
   assert isinstance(reference_corpus[0], list), \
@@ -123,13 +125,12 @@ cpdef np.ndarray bleu_points(list reference_corpus,
   assert isinstance(candidate_corpus[0], list), \
         'candidate corpus should be a list of lists'
   # corpus_score[:, 0]: edit distance, corpus_score[:, 1]: normalized edit distance
-  cdef np.ndarray points = np.zeros([len(reference_corpus), 3], dtype=DTYPE)
-  cdef int row_idx = 0
-  cdef vector[float] sentence_score
-  for reference, candidate in  zip(reference_corpus, candidate_corpus):
+  cdef vector[vector[DTYPE]] points
+  points.reserve(len(reference_corpus))
+  cdef vector[DTYPE] sentence_score
+  sentence_score.reserve(3)
+  # Iterate through corpus
+  for reference, candidate in zip(reference_corpus, candidate_corpus):
     sentence_score = bleu_sentence(reference, candidate, max_ngram)
-    points[row_idx,0] += sentence_score[0]
-    points[row_idx,1] += sentence_score[1]
-    points[row_idx,2] += sentence_score[2]
-    row_idx += 1
+    points.push_back(sentence_score)
   return points
