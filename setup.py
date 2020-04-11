@@ -1,10 +1,8 @@
 from setuptools import Extension, setup
 from Cython.Build import cythonize
-import numpy as np
 
 
 COMPILE_ARGS = ["-std=c++17"]
-INCLUDE_DIRS = [np.get_include()]
 
 
 bleu = Extension(
@@ -12,7 +10,6 @@ bleu = Extension(
     sources=["src/bleu.pyx"],
     language="c++",
     extra_compile_args=COMPILE_ARGS,
-    include_dirs=INCLUDE_DIRS,
 )
 
 
@@ -21,7 +18,6 @@ edit_distance = Extension(
     sources=["src/edit_distance.pyx"],
     language="c++",
     extra_compile_args=COMPILE_ARGS,
-    include_dirs=INCLUDE_DIRS,
 )
 
 
@@ -46,7 +42,7 @@ setup(
         "natural language processing",
         "deep learning",
     ],
-    install_requires=["Cython>=0.29", "numpy>=1.18"],
+    install_requires=["Cython>=0.29"],
     python_requires=">=3.7",
     ext_modules=cythonize([bleu, edit_distance]),
     zip_safe=False,
