@@ -1,10 +1,12 @@
 # python byte codes
-cyzil/__pycache__/
+.cyzil
+__pycache__/
 
 
 # pytest
 .pytest_cache/
 __pycache__/
+
 
 # complied pyx files
 *.pyd
