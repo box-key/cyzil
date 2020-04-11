@@ -1,13 +1,14 @@
 import pytest
-import numpy as np
 import os
-
-import cyzil
 
 
 # compile pyx files for testing
 string = "python setup.py build_ext --inplace"
 os.system(string)
+
+
+# package to test
+import cyzil
 
 
 # Test strings
@@ -47,7 +48,7 @@ class TestBLEU:
         b = cyzil.bleu_points(ref, cand, 4)
         # bleu_points returns bleu score for each sentence as 2d numpy array:
         # number of pairs by 3
-        assert len(b) == len(ref) and isinstance(b, np.ndarray)
+        assert len(b) == len(ref) and isinstance(b, list)
         # each sentence has 3 elements
         assert all(len(x) == 3 for x in b)
 
@@ -77,7 +78,7 @@ class TestEditDistance:
         edit = cyzil.edit_distance_points(ref, cand)
         # edit_distance_points returns edit distance for each sentence
         # as 2d np array: number of pairs by 2
-        assert len(edit) == len(ref) and isinstance(edit, np.ndarray)
+        assert len(edit) == len(ref) and isinstance(edit, list)
         # edit_distance is greater than or equal to 0
         assert all((0 <= x[0]) for r, c, x in zip(ref, cand, edit))
         # maximum edit distance is the length of reference or candidate
