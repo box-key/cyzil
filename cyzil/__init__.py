@@ -7,13 +7,13 @@ the following utilities:
 bleu.
 """
 
-from bleu import bleu_sentence, bleu_corpus, bleu_sentence
+from bleu import bleu_sentence, bleu_corpus, bleu_points
 from edit_distance import edit_distance_sentence, edit_distance_corpus, edit_distance_points
 
 __all__ = [
     "bleu_sentence",
     "bleu_corpus",
-    "bleu_sentence",
+    "bleu_points",
     "edit_distance_sentence",
     "edit_distance_corpus",
     "edit_distance_points"
