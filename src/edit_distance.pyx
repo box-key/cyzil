@@ -37,7 +37,7 @@ cpdef int edit_distance_sentence(list sen1, list sen2):
     character-level edit distance, please refer to
     https://pypi.org/project/python-Levenshtein/.
 
-    Examples
+    Example
     --------
     >>> from cyzil import edit_distance_sentence
     >>> edit_distance_sentence(['this', 'is', 'a', 'test', 'sentence'],
@@ -110,7 +110,7 @@ cpdef vector[DTYPE] edit_distance_corpus(list reference_corpus,
     character-level edit distance, please refer to
     https://pypi.org/project/python-Levenshtein/.
 
-    Examples
+    Example
     --------
     >>> from cyzil import edit_distance_corpus
     >>>  reference_corpus = [['this', 'is', 'a', 'test', 'sentence'],
@@ -170,7 +170,7 @@ cpdef vector[vector[DTYPE]] edit_distance_points(list reference_corpus,
     character-level edit distance, please refer to
     https://pypi.org/project/python-Levenshtein/.
 
-    Examples
+    Example
     --------
     >>> from cyzil import edit_distance_points
     >>> reference_corpus = [['this', 'is', 'a', 'test', 'sentence'],

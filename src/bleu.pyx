@@ -69,7 +69,7 @@ cpdef vector[DTYPE] bleu_sentence(list reference,
         second value is brevity penalty, and the last value is bleu score,
         which is the product of precision and brevity penalty.
 
-    Examples
+    Example
     --------
     >>> from cyzil import bleu_sentence
     >>> bleu_sentence(['this', 'is', 'a', 'test', 'sentence'],
@@ -108,7 +108,7 @@ cpdef vector[DTYPE] bleu_corpus(list reference_corpus,
         second value is brevity penalty, and the last value is bleu score,
         which is the product of precision and brevity penalty.
 
-    Examples
+    Example
     --------
     >>> from cyzil import bleu_corpus
     >>>  reference_corpus = [['this', 'is', 'a', 'test', 'sentence'],
@@ -190,7 +190,7 @@ cpdef vector[vector[DTYPE]] bleu_points(list reference_corpus,
         bleu score for each reference-candidate pair, where each row corresponds
         to each pair.
 
-    Examples
+    Example
     --------
     >>> from cyzil import bleu_points
     >>>  reference_corpus = [['this', 'is', 'a', 'test', 'sentence'],
