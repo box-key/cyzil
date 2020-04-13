@@ -5,88 +5,196 @@ from libcpp.string cimport string
 ctypedef float DTYPE
 
 
-# if I can cast input type, i don't need this method
 cpdef vector[string] _list2vec(list data):
-  cdef vector[string] _data = [token.encode("utf-8") for token in data]
-  return _data
+    cdef vector[string] _data = [token.encode("utf-8") for token in data]
+    return _data
 
 
 cpdef void _assign_zeros(vector[int] &vec):
-  for v in vec:
-    v = 0
+    for v in vec:
+        v = 0
 
 
 cpdef int edit_distance_sentence(list sen1, list sen2):
-  cdef vector[string] _sen1 = _list2vec(sen1)
-  cdef vector[string] _sen2 = _list2vec(sen2)
-  cdef int len_s1 = _sen1.size() + 1
-  cdef int len_s2 = _sen2.size() + 1
-  if (len_s1 == 0) or (len_s2 == 0):
-    return max(len_s1, len_s2)
-  if len_s1 > len_s2:
-    _sen1, _sen2 = _sen2, _sen1
-    len_s1, len_s2 = len_s2, len_s1
-  cdef vector[int] distances = range(len_s1)
-  distances.reserve(len_s1)
-  cdef vector[int] dist_temp = [0]*len_s1
-  dist_temp.reserve(len_s1)
-  cdef int val
-  cdef string _w1
-  cdef string _w2
-  for i2, w2 in enumerate(_sen2):
-    _w2 = <string> w2
-    dist_temp[0] = i2 + 1
-    for i1, w1 in enumerate(_sen1):
-      _w1 = <string> w1
-      # w1 is the same with w2, store the previous cell
-      if _w1.compare(_w2) == 0:
-        dist_temp[i1+1] = distances[i1]
-      else:
-        val = 1 + min((distances[i1], distances[i1+1], dist_temp[i1]))
-        dist_temp[i1+1] = val
-    distances = dist_temp
-    _assign_zeros(dist_temp)
-  return distances.back()
+    """Computes sentence-level Edit distance (Levenshtein distance).
+
+    Parameters
+    ----------
+    sen1, sen2 : list
+        A tokenized sentence stored as a list of strings.
+
+    Returns
+    -------
+    distance : int
+        edit distance between a reference sentence and a candidate sentence.
+
+    Notes
+    -----
+    This method computes token-level edit distance. In other words, it's
+    different from character-level distance. For example, the token-level edit
+    distance between ['I', 'have', 'a', 'pen'] and ['I', 'have', 'a', 'dog'] is
+    1 because only one ``editing`` happens between 'pen' and 'dog'. For
+    character-level edit distance, please refer to
+    https://pypi.org/project/python-Levenshtein/.
+
+    Examples
+    --------
+    >>> from cyzil import edit_distance_sentence
+    >>> edit_distance_sentence(['this', 'is', 'a', 'test', 'sentence'],
+                               ['this', 'is', 'a', 'test', 'sentence'])
+    0
+
+    """
+    cdef vector[string] _sen1 = _list2vec(sen1)
+    cdef vector[string] _sen2 = _list2vec(sen2)
+    cdef int len_s1 = _sen1.size() + 1
+    cdef int len_s2 = _sen2.size() + 1
+    if (len_s1 == 0) or (len_s2 == 0):
+        return max(len_s1, len_s2)
+    if len_s1 > len_s2:
+        _sen1, _sen2 = _sen2, _sen1
+        len_s1, len_s2 = len_s2, len_s1
+    cdef vector[int] distances = range(len_s1)
+    distances.reserve(len_s1)
+    cdef vector[int] dist_temp = [0]*len_s1
+    dist_temp.reserve(len_s1)
+    cdef int val
+    cdef string _w1
+    cdef string _w2
+    for i2, w2 in enumerate(_sen2):
+        # cast byte object to string, somehow enumerate gives a byte object
+        _w2 = <string> w2
+        dist_temp[0] = i2 + 1
+        for i1, w1 in enumerate(_sen1):
+            _w1 = <string> w1
+            # w1 is the same with w2, store the previous cell
+            if _w1.compare(_w2) == 0:
+                dist_temp[i1+1] = distances[i1]
+            else:
+                val = 1 + min((distances[i1], distances[i1+1], dist_temp[i1]))
+                dist_temp[i1+1] = val
+        # swap the current value and the next value
+        distances = dist_temp
+        # reset dist_temp
+        _assign_zeros(dist_temp)
+    cdef int distance = distances.back()
+    return distance
 
 
 cpdef vector[DTYPE] edit_distance_corpus(list reference_corpus,
-                                          list candidate_corpus):
-  assert len(reference_corpus) == len(candidate_corpus), \
-        'reference corpus and candiate corpus should have the same length'
-  assert isinstance(reference_corpus[0], list), \
-        'reference corpus should be a list of lists'
-  assert isinstance(candidate_corpus[0], list), \
-        'candidate corpus should be a list of lists'
-  # corpus_score[0]: edit distance, corpus_score[1]: normalized edit distance
-  cdef vector[DTYPE] corpus_score = [0.0, 0.0]
-  corpus_score.reserve(2)
-  cdef int sentence_score
-  # Iterate through corpus
-  for reference, candidate in zip(reference_corpus, candidate_corpus):
-    sentence_score = edit_distance_sentence(reference, candidate)
-    corpus_score[0] += sentence_score
-    corpus_score[1] += (<float> sentence_score/len(reference))
-  corpus_score[0] /= len(reference_corpus)
-  corpus_score[1] /= len(reference_corpus)
-  return corpus_score
+                                         list candidate_corpus):
+    """Computes corpus-level Edit distance (Levenshtein distance).
+
+    Parameters
+    ----------
+    reference_corpus, candidate_corpus : list
+        A corpus contains a list of strings as individual sentences. Reference
+        is assumed to be correct sequences, and candidateis is assumed to be
+        sequences generated by some model. It assumes that a pair of reference
+        and candidate is stored at the same index.
+
+    Returns
+    -------
+    corpus_score : list
+        A list of 2 decimal values: the first value is the mean edit distance
+        between reference corpus and candidate corpus and the second value is
+        the mean normalized edit distance, i.e. the sum of edit distance for
+        each pair divided by the length of the reference.
+
+    Notes
+    -----
+    This method computes token-level edit distance. In other words, it's
+    different from character-level distance. For example, the token-level edit
+    distance between ['I', 'have', 'a', 'pen'] and ['I', 'have', 'a', 'dog'] is
+    1 because only one ``editing`` happens between 'pen' and 'dog'. For
+    character-level edit distance, please refer to
+    https://pypi.org/project/python-Levenshtein/.
+
+    Examples
+    --------
+    >>> from cyzil import edit_distance_corpus
+    >>>  reference_corpus = [['this', 'is', 'a', 'test', 'sentence'],
+                             ['I', 'see', 'an', 'apple', 'and', 'a', 'cat']]
+         candidate_corpus = [['this', 'is', 'a', 'test', 'sentence'],
+                             ['I', 'see', 'an', 'apple', 'and', 'a', 'dog']]
+    >>> edit_distance_corpus(reference_corpus, candidate_corpus)
+    [0.5, 0.0714285746216774]
+
+    """
+    assert len(reference_corpus) == len(candidate_corpus), \
+          'reference corpus and candiate corpus should have the same length'
+    assert isinstance(reference_corpus[0], list), \
+          'reference corpus should be a list of lists'
+    assert isinstance(candidate_corpus[0], list), \
+          'candidate corpus should be a list of lists'
+    # corpus_score[0]: edit distance, corpus_score[1]: normalized edit distance
+    cdef vector[DTYPE] corpus_score = [0.0, 0.0]
+    corpus_score.reserve(2)
+    cdef int sentence_score
+    # Iterate through corpus
+    for reference, candidate in zip(reference_corpus, candidate_corpus):
+        sentence_score = edit_distance_sentence(reference, candidate)
+        corpus_score[0] += sentence_score
+        corpus_score[1] += (<float> sentence_score/len(reference))
+    corpus_score[0] /= len(reference_corpus)
+    corpus_score[1] /= len(reference_corpus)
+    return corpus_score
 
 
 cpdef vector[vector[DTYPE]] edit_distance_points(list reference_corpus,
                                                  list candidate_corpus):
-  assert len(reference_corpus)==len(candidate_corpus), \
-        'reference corpus and candiate corpus should have the same length'
-  assert isinstance(reference_corpus[0], list), \
-        'reference corpus should be a list of lists'
-  assert isinstance(candidate_corpus[0], list), \
-        'candidate corpus should be a list of lists'
-  # points[:, 0]: edit distance, points[:, 1]: normalized edit distance
-  cdef vector[vector[DTYPE]] points
-  points.reserve(len(reference_corpus))
-  cdef int point_score
-  cdef DTYPE normalized_score
-  # Iterate through corpus
-  for reference, candidate in zip(reference_corpus, candidate_corpus):
-    point_score = edit_distance_sentence(reference, candidate)
-    normalized_score = <DTYPE> point_score/len(reference)
-    points.push_back([<DTYPE> point_score, normalized_score])
-  return points
+    """Computes Edit distance (Levenshtein distance) for each
+       reference-candiate pair in corpus.
+
+    Parameters
+    ----------
+    reference_corpus, candidate_corpus : list
+        A corpus contains a list of strings as individual sentences. Reference
+        is assumed to be correct sequences, and candidateis is assumed to be
+        sequences generated by some model. It assumes that a pair of reference
+        and candidate is stored at the same index.
+
+    Returns
+    -------
+    points : list of edit distance [number of pairs in corpus, 2]
+        A 2-dimensional list that contains edit distance and normalized edit
+        distance (i.e. edit distance divided by the length of reference) for
+        each reference-candidate pair, where each row corresponds to each pair.
+
+    Notes
+    -----
+    This method computes token-level edit distance. In other words, it's
+    different from character-level distance. For example, the token-level edit
+    distance between ['I', 'have', 'a', 'pen'] and ['I', 'have', 'a', 'dog'] is
+    1 because only one ``editing`` happens between 'pen' and 'dog'. For
+    character-level edit distance, please refer to
+    https://pypi.org/project/python-Levenshtein/.
+
+    Examples
+    --------
+    >>> from cyzil import edit_distance_points
+    >>> reference_corpus = [['this', 'is', 'a', 'test', 'sentence'],
+                            ['I', 'see', 'an', 'apple', 'and', 'a', 'cat']]
+        candidate_corpus = [['this', 'is', 'a', 'test', 'sentence'],
+                            ['I', 'see', 'an', 'apple', 'and', 'a', 'dog']]
+    >>> edit_distance_points(reference_corpus, candidate_corpus)
+    [[0.0, 0.0], [1.0, 0.1428571492433548]]
+
+    """
+    assert len(reference_corpus)==len(candidate_corpus), \
+          'reference corpus and candiate corpus should have the same length'
+    assert isinstance(reference_corpus[0], list), \
+          'reference corpus should be a list of lists'
+    assert isinstance(candidate_corpus[0], list), \
+          'candidate corpus should be a list of lists'
+    # points[:, 0]: edit distance, points[:, 1]: normalized edit distance
+    cdef vector[vector[DTYPE]] points
+    points.reserve(len(reference_corpus))
+    cdef int point_score
+    cdef DTYPE normalized_score
+    # Iterate through corpus
+    for reference, candidate in zip(reference_corpus, candidate_corpus):
+        point_score = edit_distance_sentence(reference, candidate)
+        normalized_score = <DTYPE> point_score/len(reference)
+        points.push_back([<DTYPE> point_score, normalized_score])
+    return points
