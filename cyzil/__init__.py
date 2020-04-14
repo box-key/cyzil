@@ -1,10 +1,7 @@
 """
 Cyzil provides tools that enable quick and in-depth analysis of
 sequence-sequence models, especially machine translation models. It contains
-the following utilities:
-
-* a Cython module that provides fast computation of standard metrics such as
-bleu.
+a Cython module that provides fast computation of standard metrics such as bleu
 """
 
 from bleu import bleu_sentence, bleu_corpus, bleu_points
