@@ -1,0 +1,6 @@
+[console_scripts]
+cyzil-bleu-corpus = cyzil.cli.bleu_cli:bleu_corpus
+cyzil-bleu-points = cyzil.cli.bleu_cli:bleu_points
+cyzil-edit-distance-corpus = cyzil.cli.edit_distance_cli:edit_distance_corpus
+cyzil-edit-distance-points = cyzil.cli.edit_distance_cli:edit_distance_points
+

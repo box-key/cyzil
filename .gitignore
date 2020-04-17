@@ -17,7 +17,3 @@ __pycache__/
 # packaging
 build/
 dist/
-
-
-# test data
-data/
