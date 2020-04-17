@@ -1,9 +1,10 @@
 cyzil
 =====
 
-# Description
+Description
+-----------
 
-Cyzil provides tools that enable quick and in-depth analysis of sequence-sequence models, especially machine translation models. It contains a Cython module that provides fast computation of standard metrics. It covers [edit distance (Levenstein Distance)](https://en.wikipedia.org/wiki/Levenshtein_distance) and BLEU score proposed by [Papineni et al. (2002)](https://www.aclweb.org/anthology/P02-1040.pdf) so far.
+Cyzil provides tools that enable quick and in-depth analysis of sequence generation models such as machine translation models. It contains a Cython module that provides fast computation of standard metrics. It covers [edit distance (Levenstein Distance)](https://en.wikipedia.org/wiki/Levenshtein_distance) and BLEU score proposed by [Papineni et al. (2002)](https://www.aclweb.org/anthology/P02-1040.pdf) so far.
 
 - [Command-line tool](#command-line-tool)
 - [Python API](#python-api)
