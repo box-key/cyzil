@@ -1,6 +1,8 @@
 # python byte codes
 .cyzil
 __pycache__/
+.cyzil.cli
+__pycache__/
 
 
 # pytest
@@ -15,3 +17,7 @@ __pycache__/
 # packaging
 build/
 dist/
+
+
+# test data
+data/
