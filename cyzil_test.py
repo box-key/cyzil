@@ -1,14 +1,16 @@
 import pytest
 import os
+import shutil
 
 
 # compile pyx files for testing
-string = "python setup.py build_ext --inplace"
+string = "python setup.py develop"
 os.system(string)
 
 
-# package to test
+# packages to test
 import cyzil
+from cyzil.cli import utils
 
 
 # Test strings
@@ -84,3 +86,41 @@ class TestEditDistance:
         # maximum edit distance is the length of reference or candidate
         max_len = [max(len(r), len(c)) for r, c in zip(ref, cand)]
         assert all((x[0] < len) for x, len in zip(edit, max_len))
+
+
+class TestCLI:
+
+
+    def test_command_exists(self):
+        """ Test if all commandas are executable """
+        assert shutil.which('cyzil-bleu-corpus')
+        assert shutil.which('cyzil-bleu-points')
+        assert shutil.which('cyzil-edit-distance-corpus')
+        assert shutil.which('cyzil-edit-distance-corpus')
+
+
+    def test_load_data(self):
+        """ Test load data returns tokenized sentences """
+        file_name = 'test.en'
+        # make a dummy file
+        open(file_name, 'w').write('this is a test.')
+        data = utils.load_data(file_name, tokenizer_option='nltk')
+        # check if data is a list of tokenized sentences
+        assert isinstance(data, list)
+        # check if sentences are tokenized
+        assert isinstance(data[0], list) and (data[0][0] == 'this')
+        # rermove the test file
+        os.remove(file_name)
+
+
+
+    def test_output(self):
+        """ Test if output file is made correctly """
+        data = [['this', 'is'],
+                ['a', 'test']]
+        file_name = 'test.csv'
+        utils.store_output(data, file_name)
+        # check if a file exists
+        assert os.path.exists(file_name)
+        # remove the test file
+        os.remove(file_name)

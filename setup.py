@@ -25,7 +25,7 @@ with open("README.md", "r") as f:
     long_description = f.read()
 
 
-__version__ = "0.1.1"
+__version__ = "0.2.1"
 
 
 setup(
@@ -40,9 +40,17 @@ setup(
     keywords=[
         "machine translation",
         "natural language processing",
-        "deep learning",
+        "seq2seq models",
     ],
     install_requires=["Cython>=0.29"],
+    entry_points={
+        'console_scripts': [
+            'cyzil-bleu-corpus = cyzil.cli.bleu_cli:bleu_corpus',
+            'cyzil-bleu-points = cyzil.cli.bleu_cli:bleu_points',
+            'cyzil-edit-distance-corpus = cyzil.cli.edit_distance_cli:edit_distance_corpus',
+            'cyzil-edit-distance-points = cyzil.cli.edit_distance_cli:edit_distance_points',
+        ]
+    },
     python_requires=">=3.7",
     ext_modules=cythonize([bleu, edit_distance]),
     zip_safe=False,
