@@ -17,3 +17,4 @@ __pycache__/
 # packaging
 build/
 dist/
+*.egg-info
