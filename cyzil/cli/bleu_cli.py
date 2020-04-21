@@ -1,7 +1,7 @@
 import argparse
 import sys
 
-from .utils import load_data, store_output
+from .utils import load_data, store_output, check_help
 
 import cyzil
 
@@ -49,6 +49,7 @@ def _parse_argument(args, docs):
         )
     )
     parser.add_argument(
+        "-o",
         "--output",
         type=str,
         help=(
@@ -63,7 +64,20 @@ def _parse_argument(args, docs):
 
 
 def bleu_corpus():
-    parser = _parse_argument(sys.argv[1:], cyzil.bleu_corpus.__doc__)
+    """compute corpus-level bleu score
+    cyzil-bleu-corpus [-h] [--reference] [--candiate]
+                      [--ngram] [--tokenizer]
+    required arguments:
+    --reference   path to reference file, where each serntence is separated by '\\n'
+    --candiate    path to candidate file, where each serntence is separated by '\\n'
+    --ngram       the maximum order of ngram to compute the score
+
+    optional arguments:
+    --tokenizer   a way to tokenize sentences (white space by default);
+                  options: space, nltk
+    """
+    check_help(bleu_corpus.__doc__)
+    parser = _parse_argument(sys.argv[1:], bleu_corpus.__doc__)
     reference = load_data(parser.reference, parser.tokenizer)
     candidate = load_data(parser.candidate, parser.tokenizer)
     scores = cyzil.bleu_corpus(reference, candidate, parser.ngram)
@@ -75,7 +89,21 @@ def bleu_corpus():
 
 
 def bleu_points():
-    parser = _parse_argument(sys.argv[1:], cyzil.bleu_points.__doc__)
+    """compute bleu score for each translation pair
+    cyzil-bleu-points [-h] [--reference] [--candiate]
+                      [--ngram] [--tokenizer] [--output]
+    required arguments:
+    --reference     path to reference file, where each serntence is separated by '\n'
+    --candiate      path to candidate file, where each serntence is separated by '\n'
+    --ngram         the maximum order of ngram to compute the score
+
+    optional arguments:
+    --tokenizer     a way to tokenize sentences (white space by default);
+                    options: space, nltk
+    -o, --output    a file path to store output in csv format
+    """
+    check_help(bleu_points.__doc__)
+    parser = _parse_argument(sys.argv[1:], bleu_points.__doc__)
     reference = load_data(parser.reference, parser.tokenizer)
     candidate = load_data(parser.candidate, parser.tokenizer)
     scores = cyzil.bleu_points(reference, candidate, parser.ngram)

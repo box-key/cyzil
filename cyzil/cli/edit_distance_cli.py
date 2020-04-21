@@ -1,7 +1,7 @@
 import argparse
 import sys
 
-from .utils import load_data, store_output
+from .utils import load_data, store_output, check_help
 
 import cyzil
 
@@ -41,6 +41,7 @@ def _parse_argument(args, docs):
         )
     )
     parser.add_argument(
+        "-o",
         "--output",
         type=str,
         help=(
@@ -55,7 +56,19 @@ def _parse_argument(args, docs):
 
 
 def edit_distance_corpus():
-    parser = _parse_argument(sys.argv[1:], cyzil.edit_distance_corpus.__doc__)
+    """compute bleu score for each translation pair
+    cyzi-edit-distance-corpus [-h] [--reference] [--candiate]
+                              [--tokenizer]
+    required arguments:
+    --reference     path to reference file, where each serntence is separated by '\n'
+    --candiate      path to candidate file, where each serntence is separated by '\n'
+
+    optional arguments:
+    --tokenizer     a way to tokenize sentences (white space by default);
+                    options: space, nltk
+    """
+    check_help(edit_distance_corpus.__doc__)
+    parser = _parse_argument(sys.argv[1:], edit_distance_corpus.__doc__)
     reference = load_data(parser.reference, parser.tokenizer)
     candidate = load_data(parser.candidate, parser.tokenizer)
     scores = cyzil.edit_distance_corpus(reference, candidate)
@@ -66,7 +79,20 @@ def edit_distance_corpus():
 
 
 def edit_distance_points():
-    parser = _parse_argument(sys.argv[1:], cyzil.edit_distance_points.__doc__)
+    """compute edit distance for each translation pair
+    cyzil-edit-distance-points [-h] [--reference] [--candiate]
+                               [--tokenizer] [--output]
+    required arguments:
+    --reference     path to reference file, where each serntence is separated by '\n'
+    --candiate      path to candidate file, where each serntence is separated by '\n'
+
+    optional arguments:
+    --tokenizer     a way to tokenize sentences (white space by default);
+                    options: space, nltk
+    -o, --output    a file path to store output in csv format
+    """
+    check_help(edit_distance_points.__doc__)
+    parser = _parse_argument(sys.argv[1:], edit_distance_points.__doc__)
     reference = load_data(parser.reference, parser.tokenizer)
     candidate = load_data(parser.candidate, parser.tokenizer)
     scores = cyzil.edit_distance_points(reference, candidate)

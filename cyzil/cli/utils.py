@@ -1,4 +1,7 @@
+import sys
+import argparse
 import csv
+
 from cyzil import tokenizers
 
 
@@ -25,3 +28,14 @@ def store_output(data, path_file):
         writer = csv.writer(f, delimiter=',')
         for row in data:
             writer.writerow(row)
+
+def check_help(docs):
+    if (len(sys.argv) == 2) and \
+       ((sys.argv[1] == '--help') or (sys.argv[1] == '-h')):
+       parser = argparse.ArgumentParser(description=docs,
+                                        formatter_class=argparse.RawDescriptionHelpFormatter)
+       parser.parse_args()
+       sys.exit(1)
+    elif len(sys.argv) == 2:
+       print('Illegal argument. Please refere to help by --help or -h')
+       sys.exit(1)

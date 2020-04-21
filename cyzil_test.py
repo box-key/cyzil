@@ -24,7 +24,6 @@ cand = [c1, c2]
 
 class TestBLEU:
 
-
     def test_bleu_sentence(self):
         """ Test return type and value of bleu_sentence """
         b = cyzil.bleu_sentence(r1, c1, 4)
@@ -34,7 +33,6 @@ class TestBLEU:
         # for an identical translation, bleu score is 1
         assert all(x == 1 for x in b)
 
-
     def test_bleu_corpus(self):
         """ Test return type and value of bleu_corpus """
         b = cyzil.bleu_corpus(ref, cand, 4)
@@ -43,7 +41,6 @@ class TestBLEU:
         assert len(b) == 3 and isinstance(b, list)
         # bleu score ranges from 0 to 1
         assert (0 <= b[2]) and (b[2] <= 1)
-
 
     def test_bleu_points(self):
         """ Test return type and value of bleu_points """
@@ -57,7 +54,6 @@ class TestBLEU:
 
 class TestEditDistance:
 
-
     def test_edit_distance_sentence(self):
         """ Test return type and value of edit_distance_sentence """
         edit = cyzil.edit_distance_sentence(r1, c1)
@@ -66,14 +62,12 @@ class TestEditDistance:
         # for identical translation,edit distance is 0
         assert edit == 0
 
-
     def test_edit_distance_corpus(self):
         """ Test return type and value of edit_distance_corpus """
         edit = cyzil.edit_distance_corpus(ref, cand)
         # edit_distance_corpus returns a list of 2 elements:
         # [edit distance, normalizer edit distance]
         assert len(edit) == 2 and isinstance(edit, list)
-
 
     def test_edit_distance_points(self):
         """ Test return type and value of edit_distance_points """
@@ -90,14 +84,12 @@ class TestEditDistance:
 
 class TestCLI:
 
-
     def test_command_exists(self):
         """ Test if all commandas are executable """
         assert shutil.which('cyzil-bleu-corpus')
         assert shutil.which('cyzil-bleu-points')
         assert shutil.which('cyzil-edit-distance-corpus')
         assert shutil.which('cyzil-edit-distance-corpus')
-
 
     def test_load_data(self):
         """ Test load data returns tokenized sentences """
@@ -111,8 +103,6 @@ class TestCLI:
         assert isinstance(data[0], list) and (data[0][0] == 'this')
         # rermove the test file
         os.remove(file_name)
-
-
 
     def test_output(self):
         """ Test if output file is made correctly """
