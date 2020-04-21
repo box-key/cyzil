@@ -27,7 +27,7 @@ The reference and candidate sentences should be stored in separate lines, e.g.
 sentence 1\n sentence 2\n ... sentence k\n.
 Please see examples [here](https://github.com/box-key/cyzil/tree/master/data).
 For computing score, you can tokenize sentences by white space or [nltk tokenizer](https://www.nltk.org/).
-By default, it tokenizes sentences 
+By default, it tokenizes sentences
 by white space.
 
 ### Usage
@@ -40,9 +40,7 @@ The following code shows an example for corpus-leve BLEU score. It prints out th
     --candidate data/can.en \
     --ngram 4 \
     --tokenizer nltk
-Blue precision: 0.9041149616241455
-Bleu brevity penalty: 1.0
-Bleu score: 0.9041149616241455
+[0.9400947690010071, 1.0, 0.9400947690010071]
 ```
 
 The below is an example for corpus-level edit distance.
@@ -52,8 +50,7 @@ The below is an example for corpus-level edit distance.
     --reference data/ref.en \
     --candidate data/can.en \
     --tokenizer nltk
-Edit distance: 0.5
-Normalized edit distance: 0.04545454680919647
+[0.5, 0.04545454680919647]
 ```
 
 ### Computing Score for Each Pair
@@ -81,6 +78,8 @@ Edit distance can be computed as follows. The first column of the output is edit
     --tokenizer nltk \
     --output output.csv
 ```
+
+For more details, please refer to help of each command, e.g. `cyzil-bleu-corpus -h`.
 
 Python API
 ----------

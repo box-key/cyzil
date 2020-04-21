@@ -51,6 +51,7 @@ setup(
             'cyzil-edit-distance-points = cyzil.cli.edit_distance_cli:edit_distance_points',
         ]
     },
+    packages=["cyzil", "cyzil.cli"],
     python_requires=">=3.7",
     ext_modules=cythonize([bleu, edit_distance]),
     zip_safe=False,
