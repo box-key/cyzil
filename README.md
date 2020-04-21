@@ -40,7 +40,7 @@ The following code shows an example for corpus-leve BLEU score. It prints out th
     --candidate data/can.en \
     --ngram 4 \
     --tokenizer nltk
-[0.9400947690010071, 1.0, 0.9400947690010071]
+[0.9041149616241455, 1.0, 0.9041149616241455]
 ```
 
 The below is an example for corpus-level edit distance.
