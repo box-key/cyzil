@@ -1,6 +1,6 @@
 """
 Cyzil provides tools that enable quick and in-depth analysis of
-sequence-sequence models, especially machine translation models. It contains
+sequence generation models such as machine translation models. It contains
 a Cython module that provides fast computation of standard metrics such as
 BLEU score.
 """
