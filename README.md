@@ -1,5 +1,8 @@
 cyzil
 =====
+![PyPI version](https://badge.fury.io/py/cyzil.svg)
+![Supported Python version](https://img.shields.io/badge/python-3.7-brightgreen)
+![Coding style](https://img.shields.io/badge/style-black-lightgrey)
 
 Description
 -----------
@@ -14,6 +17,14 @@ Requirements
 ------------
 
 * Python 3.7+
+
+Installation
+------------
+Cyzil requires Python 3.7+. Please install it by running the following code:
+
+```bash
+pip install cyzil
+```
 
 Command-line tool
 -----------------
