@@ -36,11 +36,12 @@ setup(
     description="Computate metrics for machine translation",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/box-key/Cyzil",
+    url="https://github.com/box-key/cyzil",
     keywords=[
         "machine translation",
         "natural language processing",
         "seq2seq models",
+        "encoder-decoder models"
     ],
     install_requires=["Cython>=0.29"],
     entry_points={
@@ -51,8 +52,14 @@ setup(
             'cyzil-edit-distance-points = cyzil.cli.edit_distance_cli:edit_distance_points',
         ]
     },
+    license="Apache 2.0",
     packages=["cyzil", "cyzil.cli"],
-    python_requires=">=3.7",
+    classifiers=[
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.7",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: OS Independent",
+    ],
     ext_modules=cythonize([bleu, edit_distance]),
     zip_safe=False,
 )
