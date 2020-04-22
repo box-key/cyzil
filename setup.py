@@ -25,7 +25,7 @@ with open("README.md", "r") as f:
     long_description = f.read()
 
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 
 setup(
