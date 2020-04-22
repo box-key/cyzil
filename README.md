@@ -117,10 +117,3 @@ cyzil.edit_distance_corpus([reference], [candidate])
 
 cyzil.edit_distance_points([reference], [candidate])
 ```
-
-Testing
--------
-
-1. `git clone` this repository
-1. `cd` into the repository
-1. run `pytest`. If you don't have `pytest`, run `pip install pytest` first.
