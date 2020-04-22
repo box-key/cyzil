@@ -25,7 +25,7 @@ with open("README.md", "r") as f:
     long_description = f.read()
 
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 
 setup(
@@ -36,7 +36,7 @@ setup(
     description="Computate metrics for machine translation",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/box-key/Cyzil",
+    url="https://github.com/box-key/cyzil",
     keywords=[
         "machine translation",
         "natural language processing",
