@@ -1,8 +1,8 @@
 cyzil
 =====
-![PyPI version](https://badge.fury.io/py/cyzil.svg)
-![Supported Python version](https://img.shields.io/badge/python-3.7-brightgreen)
-![Coding style](https://img.shields.io/badge/style-black-lightgrey)
+[![PyPI version](https://badge.fury.io/py/cyzil.svg)](https://pypi.org/project/cyzil/)
+[![Supported Python version](https://img.shields.io/badge/python-3.7-brightgreen)](https://pypi.org/project/cyzil/)
+[![Coding style](https://img.shields.io/badge/style-black-lightgrey)](https://github.com/psf/black)
 
 Description
 -----------
