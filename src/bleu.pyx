@@ -23,7 +23,7 @@ cpdef unordered_map[string, int] _get_overlap(unordered_map[string, int] &m1,
     # store elements appear both in m1 and m2
     for t1, c1 in m1:
         # if a token exists in both m1 and m2, store the smallest count
-        if m2.count(t1):
+        if (m2.find(t1) != m2.end()):
             c2 = m2[t1]
             overlap[t1] = min(c1, c2)
     return overlap
@@ -64,8 +64,8 @@ cpdef (DTYPE, DTYPE, DTYPE) bleu_sentence(list reference,
 
     Returns
     -------
-    list
-        A list of 3 decimal values: the first value is the precision, the
+    tuple
+        A tuple of 3 decimal values: the first value is the precision, the
         second value is brevity penalty, and the last value is bleu score,
         which is the product of precision and brevity penalty.
 
@@ -74,7 +74,7 @@ cpdef (DTYPE, DTYPE, DTYPE) bleu_sentence(list reference,
     >>> from cyzil import bleu_sentence
     >>> bleu_sentence(['this', 'is', 'a', 'test', 'sentence'],
                       ['this', 'is', 'a', 'test', 'sentence'])
-    [1.0, 1.0, 1.0]
+    (1.0, 1.0, 1.0)
 
     """
     if (len(reference) == 0) or (len(candidate) == 0):
@@ -103,8 +103,8 @@ cpdef (DTYPE, DTYPE, DTYPE) bleu_corpus(list reference_corpus,
 
     Returns
     -------
-    corpus_score : list
-        A list of 3 decimal values: the first value is the precision, the
+    corpus_score : tuple
+        A tuple of 3 decimal values: the first value is the precision, the
         second value is brevity penalty, and the last value is bleu score,
         which is the product of precision and brevity penalty.
 
@@ -116,7 +116,7 @@ cpdef (DTYPE, DTYPE, DTYPE) bleu_corpus(list reference_corpus,
          candidate_corpus = [['this', 'is', 'a', 'test', 'sentence'],
                              ['I', 'see', 'an', 'apple', 'and', 'a', 'dog']]
     >>> bleu_corpus(reference_corpus, candidate_corpus, 4)
-    [0.8806841373443604, 1.0, 0.8806841373443604]
+    (0.8806841373443604, 1.0, 0.8806841373443604)
 
     """
     assert len(reference_corpus)==len(candidate_corpus), \
@@ -162,9 +162,6 @@ cpdef (DTYPE, DTYPE, DTYPE) bleu_corpus(list reference_corpus,
             log_sum += <DTYPE> log(count)/max_ngram
         precision = exp(log_sum)
     cdef DTYPE bp = exp(min(1.-(<DTYPE> ref_len/cand_len), 0))
-    # corpus_score[0]: precision, corpus_score[1]: bp, corpus_score[2]: bleu
-    # cdef vector[DTYPE] corpus_score = [precision, bp, precision*bp]
-    # corpus_score.reserve(3)
     return (precision, bp, precision*bp)
 
 

@@ -851,8 +851,8 @@ static const char *__pyx_f[] = {
 typedef float __pyx_t_13edit_distance_DTYPE;
 
 /*--- Type declarations ---*/
-struct __pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc;
-typedef struct __pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc __pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc;
+struct __pyx_ctuple_88fdb____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc;
+typedef struct __pyx_ctuple_88fdb____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc __pyx_ctuple_88fdb____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc;
 
 /* "edit_distance.pyx":84
  * 
@@ -861,7 +861,7 @@ typedef struct __pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___du
  *                                          list candidate_corpus):
  *     """Computes corpus-level Edit distance (Levenshtein distance).
  */
-struct __pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc {
+struct __pyx_ctuple_88fdb____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc {
   __pyx_t_13edit_distance_DTYPE f0;
   __pyx_t_13edit_distance_DTYPE f1;
 };
@@ -1165,7 +1165,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
 /* ToPyCTupleUtility.proto */
-static PyObject* __pyx_convert__to_py___pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc(__pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc);
+static PyObject* __pyx_convert__to_py___pyx_ctuple_88fdb____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc(__pyx_ctuple_88fdb____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc);
 
 /* CppExceptionConversion.proto */
 #ifndef __Pyx_CppExn2PyErr
@@ -1248,7 +1248,7 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 static std::vector<std::string>  __pyx_f_13edit_distance__list2vec(PyObject *, int __pyx_skip_dispatch); /*proto*/
 static void __pyx_f_13edit_distance__assign_zeros(std::vector<int>  &, int __pyx_skip_dispatch); /*proto*/
 static int __pyx_f_13edit_distance_edit_distance_sentence(PyObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
-static __pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc __pyx_f_13edit_distance_edit_distance_corpus(PyObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
+static __pyx_ctuple_88fdb____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc __pyx_f_13edit_distance_edit_distance_corpus(PyObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
 static std::vector<std::vector<__pyx_t_13edit_distance_DTYPE> >  __pyx_f_13edit_distance_edit_distance_points(PyObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
 static std::vector<int>  __pyx_convert_vector_from_py_int(PyObject *); /*proto*/
 static std::string __pyx_convert_string_from_py_std__in_string(PyObject *); /*proto*/
@@ -2221,13 +2221,13 @@ static PyObject *__pyx_pf_13edit_distance_4edit_distance_sentence(CYTHON_UNUSED 
  */
 
 static PyObject *__pyx_pw_13edit_distance_7edit_distance_corpus(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static __pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc __pyx_f_13edit_distance_edit_distance_corpus(PyObject *__pyx_v_reference_corpus, PyObject *__pyx_v_candidate_corpus, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static __pyx_ctuple_88fdb____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc __pyx_f_13edit_distance_edit_distance_corpus(PyObject *__pyx_v_reference_corpus, PyObject *__pyx_v_candidate_corpus, CYTHON_UNUSED int __pyx_skip_dispatch) {
   __pyx_t_13edit_distance_DTYPE __pyx_v_edit_distance;
   __pyx_t_13edit_distance_DTYPE __pyx_v_normalized_edit_distance;
   int __pyx_v_sentence_score;
   PyObject *__pyx_v_reference = NULL;
   PyObject *__pyx_v_candidate = NULL;
-  __pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc __pyx_r;
+  __pyx_ctuple_88fdb____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc __pyx_r;
   __Pyx_RefNannyDeclarations
   Py_ssize_t __pyx_t_1;
   Py_ssize_t __pyx_t_2;
@@ -2239,7 +2239,7 @@ static __pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_
   PyObject *__pyx_t_8 = NULL;
   PyObject *__pyx_t_9 = NULL;
   PyObject *(*__pyx_t_10)(PyObject *);
-  __pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc __pyx_t_11;
+  __pyx_ctuple_88fdb____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc __pyx_t_11;
   __Pyx_RefNannySetupContext("edit_distance_corpus", 0);
 
   /* "edit_distance.pyx":124
@@ -2631,7 +2631,7 @@ static PyObject *__pyx_pf_13edit_distance_6edit_distance_corpus(CYTHON_UNUSED Py
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("edit_distance_corpus", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert__to_py___pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc(__pyx_f_13edit_distance_edit_distance_corpus(__pyx_v_reference_corpus, __pyx_v_candidate_corpus, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert__to_py___pyx_ctuple_88fdb____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc(__pyx_f_13edit_distance_edit_distance_corpus(__pyx_v_reference_corpus, __pyx_v_candidate_corpus, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5404,7 +5404,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
 }
 
 /* ToPyCTupleUtility */
-static PyObject* __pyx_convert__to_py___pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc(__pyx_ctuple_3ebbd____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc value) {
+static PyObject* __pyx_convert__to_py___pyx_ctuple_88fdb____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc(__pyx_ctuple_88fdb____dunderpyx_t_13edit_distance_DTYPE__and___dunderpyx_t_13edit_distance_DTYPE__etc value) {
     PyObject* item = NULL;
     PyObject* result = PyTuple_New(2);
     if (!result) goto bad;
