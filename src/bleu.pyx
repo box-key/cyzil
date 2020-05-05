@@ -41,10 +41,12 @@ cpdef unordered_map[string, int] _count_ngram(const vector[string] &sentence,
             ngram = ''
             for token in sentence[i : i+order]:
                 ngram = ngram + token + DELIM
-            if ngram_counts.count(ngram):
-                ngram_counts[ngram] += 1
-            else:
+            # if ngram token doesn't exist, initialize slot with 1
+            # otherwise, increment the count of ngram token
+            if (ngram_counts.find(ngram) == ngram_counts.end()):
                 ngram_counts[ngram] = 1
+            else:
+                ngram_counts[ngram] += 1
     return ngram_counts
 
 
