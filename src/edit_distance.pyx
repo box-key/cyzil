@@ -81,7 +81,7 @@ cpdef int edit_distance_sentence(list sen1, list sen2):
     return distance
 
 
-cpdef vector[DTYPE] edit_distance_corpus(list reference_corpus,
+cpdef (DTYPE, DTYPE) edit_distance_corpus(list reference_corpus,
                                          list candidate_corpus):
     """Computes corpus-level Edit distance (Levenshtein distance).
 
@@ -128,17 +128,16 @@ cpdef vector[DTYPE] edit_distance_corpus(list reference_corpus,
     assert isinstance(candidate_corpus[0], list), \
           'candidate corpus should be a list of lists'
     # corpus_score[0]: edit distance, corpus_score[1]: normalized edit distance
-    cdef vector[DTYPE] corpus_score = [0.0, 0.0]
-    corpus_score.reserve(2)
+    cdef DTYPE edit_distance = 0.0
+    cdef DTYPE normalized_edit_distance = 0.0
     cdef int sentence_score
     # Iterate through corpus
     for reference, candidate in zip(reference_corpus, candidate_corpus):
         sentence_score = edit_distance_sentence(reference, candidate)
-        corpus_score[0] += sentence_score
-        corpus_score[1] += (<float> sentence_score/len(reference))
-    corpus_score[0] /= len(reference_corpus)
-    corpus_score[1] /= len(reference_corpus)
-    return corpus_score
+        edit_distance += sentence_score
+        normalized_edit_distance += (<float> sentence_score/len(reference))
+    return (edit_distance/len(reference_corpus),
+            normalized_edit_distance/len(reference_corpus))
 
 
 cpdef vector[vector[DTYPE]] edit_distance_points(list reference_corpus,

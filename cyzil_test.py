@@ -10,7 +10,7 @@ os.system(string)
 
 # packages to test
 import cyzil
-from cyzil.cli import utils
+from cyzil import utils
 
 
 # Test strings
@@ -29,7 +29,7 @@ class TestBLEU:
         b = cyzil.bleu_sentence(r1, c1, 4)
         # bleu_sentence returns a list of 3 elements:
         # [precision, brevity penalty, bleu score]
-        assert len(b) == 3 and isinstance(b, list)
+        assert len(b) == 3 and isinstance(b, tuple)
         # for an identical translation, bleu score is 1
         assert all(x == 1 for x in b)
 
@@ -38,7 +38,7 @@ class TestBLEU:
         b = cyzil.bleu_corpus(ref, cand, 4)
         # bleu_corpus returns a list of 3 elements:
         # [precision, brevity penalty, bleu score]
-        assert len(b) == 3 and isinstance(b, list)
+        assert len(b) == 3 and isinstance(b, tuple)
         # bleu score ranges from 0 to 1
         assert (0 <= b[2]) and (b[2] <= 1)
 
@@ -67,7 +67,7 @@ class TestEditDistance:
         edit = cyzil.edit_distance_corpus(ref, cand)
         # edit_distance_corpus returns a list of 2 elements:
         # [edit distance, normalizer edit distance]
-        assert len(edit) == 2 and isinstance(edit, list)
+        assert len(edit) == 2 and isinstance(edit, tuple)
 
     def test_edit_distance_points(self):
         """ Test return type and value of edit_distance_points """

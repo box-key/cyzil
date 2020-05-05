@@ -48,7 +48,7 @@ cpdef unordered_map[string, int] _count_ngram(const vector[string] &sentence,
     return ngram_counts
 
 
-cpdef vector[DTYPE] bleu_sentence(list reference,
+cpdef (DTYPE, DTYPE, DTYPE) bleu_sentence(list reference,
                                   list candidate,
                                   int max_ngram):
     """Computes sentence-level BLEU score.
@@ -86,7 +86,7 @@ cpdef vector[DTYPE] bleu_sentence(list reference,
     return bleu_corpus([reference], [candidate], max_ngram)
 
 
-cpdef vector[DTYPE] bleu_corpus(list reference_corpus,
+cpdef (DTYPE, DTYPE, DTYPE) bleu_corpus(list reference_corpus,
                                 list candidate_corpus,
                                 int max_ngram):
     """Computes corpus-level BLEU score.
@@ -161,11 +161,11 @@ cpdef vector[DTYPE] bleu_corpus(list reference_corpus,
         for count in norm_counts:
             log_sum += <DTYPE> log(count)/max_ngram
         precision = exp(log_sum)
-    cdef float bp = exp(min(1.-(<DTYPE> ref_len/cand_len), 0))
+    cdef DTYPE bp = exp(min(1.-(<DTYPE> ref_len/cand_len), 0))
     # corpus_score[0]: precision, corpus_score[1]: bp, corpus_score[2]: bleu
-    cdef vector[DTYPE] corpus_score = [precision, bp, precision*bp]
-    corpus_score.reserve(3)
-    return corpus_score
+    # cdef vector[DTYPE] corpus_score = [precision, bp, precision*bp]
+    # corpus_score.reserve(3)
+    return (precision, bp, precision*bp)
 
 
 cpdef vector[vector[DTYPE]] bleu_points(list reference_corpus,
@@ -214,6 +214,8 @@ cpdef vector[vector[DTYPE]] bleu_points(list reference_corpus,
     sentence_score.reserve(3)
     # Iterate through corpus
     for reference, candidate in zip(reference_corpus, candidate_corpus):
-        sentence_score = bleu_sentence(reference, candidate, max_ngram)
-        points.push_back(sentence_score)
+        sentence_score = list(bleu_sentence(reference, candidate, max_ngram))
+        points.push_back([sentence_score[0],
+                          sentence_score[1],
+                          sentence_score[2]])
     return points
