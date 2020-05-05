@@ -153,9 +153,8 @@ cpdef (DTYPE, DTYPE, DTYPE) bleu_corpus(list reference_corpus,
             clipped_count[len(ngram_token.split(DELIM)) - 2] += count
         for order in range(max_ngram):
             clip_norm[order] += max(_candidate.size() - order, 0)
-    # cdef vector[DTYPE] norm_counts
     cdef DTYPE norm_count
-    cdef DTYPE precision = 0.0
+    cdef DTYPE precision
     cdef DTYPE log_sum = 0.0
     # avoid division by 0
     if min(clipped_count):
@@ -163,10 +162,6 @@ cpdef (DTYPE, DTYPE, DTYPE) bleu_corpus(list reference_corpus,
         for c, n in zip(clipped_count, clip_norm):
           norm_count = <DTYPE> c/n
           log_sum += <DTYPE> log(norm_count)/max_ngram
-          precision = exp(log_sum)
-        # norm_counts = [<DTYPE> c/n for c, n in zip(clipped_count, clip_norm)]
-        # for count in norm_counts:
-        #     log_sum += <DTYPE> log(count)/max_ngram
         precision = exp(log_sum)
     cdef DTYPE bp = exp(min(1.-(<DTYPE> ref_len/cand_len), 0))
     return (precision, bp, precision*bp)
