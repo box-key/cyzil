@@ -31,7 +31,6 @@ class TestBLEU:
         # [precision, brevity penalty, bleu score]
         assert len(b) == 3 and isinstance(b, tuple)
         # for an identical translation, bleu score is 1
-        print(b)
         assert all(x == 1 for x in b)
 
     def test_bleu_corpus(self):
