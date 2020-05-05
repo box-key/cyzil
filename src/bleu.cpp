@@ -7,6 +7,9 @@
         "extra_compile_args": [
             "-std=c++17"
         ],
+        "include_dirs": [
+            "src"
+        ],
         "language": "c++",
         "name": "bleu",
         "sources": [
@@ -851,6 +854,21 @@ static const char *__pyx_f[] = {
 typedef float __pyx_t_4bleu_DTYPE;
 
 /*--- Type declarations ---*/
+struct __pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc;
+typedef struct __pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc __pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc;
+
+/* "bleu.pyx":51
+ * 
+ * 
+ * cpdef (DTYPE, DTYPE, DTYPE) bleu_sentence(list reference,             # <<<<<<<<<<<<<<
+ *                                   list candidate,
+ *                                   int max_ngram):
+ */
+struct __pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc {
+  __pyx_t_4bleu_DTYPE f0;
+  __pyx_t_4bleu_DTYPE f1;
+  __pyx_t_4bleu_DTYPE f2;
+};
 
 /* --- Runtime support code (head) --- */
 /* Refnanny.proto */
@@ -1193,6 +1211,9 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
+/* ToPyCTupleUtility.proto */
+static PyObject* __pyx_convert__to_py___pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc(__pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc);
+
 /* CppExceptionConversion.proto */
 #ifndef __Pyx_CppExn2PyErr
 #include <new>
@@ -1281,8 +1302,8 @@ static std::string __pyx_v_4bleu_DELIM;
 static std::vector<std::string>  __pyx_f_4bleu__list2vec(PyObject *, int __pyx_skip_dispatch); /*proto*/
 static std::unordered_map<std::string,int>  __pyx_f_4bleu__get_overlap(std::unordered_map<std::string,int>  &, std::unordered_map<std::string,int>  &, int __pyx_skip_dispatch); /*proto*/
 static std::unordered_map<std::string,int>  __pyx_f_4bleu__count_ngram(std::vector<std::string>  const &, int, int __pyx_skip_dispatch); /*proto*/
-static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_sentence(PyObject *, PyObject *, int, int __pyx_skip_dispatch); /*proto*/
-static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_corpus(PyObject *, PyObject *, int, int __pyx_skip_dispatch); /*proto*/
+static __pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc __pyx_f_4bleu_bleu_sentence(PyObject *, PyObject *, int, int __pyx_skip_dispatch); /*proto*/
+static __pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc __pyx_f_4bleu_bleu_corpus(PyObject *, PyObject *, int, int __pyx_skip_dispatch); /*proto*/
 static std::vector<std::vector<__pyx_t_4bleu_DTYPE> >  __pyx_f_4bleu_bleu_points(PyObject *, PyObject *, int, int __pyx_skip_dispatch); /*proto*/
 static std::string __pyx_convert_string_from_py_std__in_string(PyObject *); /*proto*/
 static std::unordered_map<std::string,int>  __pyx_convert_unordered_map_from_py_std_3a__3a_string__and_int(PyObject *); /*proto*/
@@ -2269,20 +2290,20 @@ static PyObject *__pyx_pf_4bleu_4_count_ngram(CYTHON_UNUSED PyObject *__pyx_self
 /* "bleu.pyx":51
  * 
  * 
- * cpdef vector[DTYPE] bleu_sentence(list reference,             # <<<<<<<<<<<<<<
+ * cpdef (DTYPE, DTYPE, DTYPE) bleu_sentence(list reference,             # <<<<<<<<<<<<<<
  *                                   list candidate,
  *                                   int max_ngram):
  */
 
 static PyObject *__pyx_pw_4bleu_7bleu_sentence(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_sentence(PyObject *__pyx_v_reference, PyObject *__pyx_v_candidate, int __pyx_v_max_ngram, CYTHON_UNUSED int __pyx_skip_dispatch) {
-  std::vector<__pyx_t_4bleu_DTYPE>  __pyx_r;
+static __pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc __pyx_f_4bleu_bleu_sentence(PyObject *__pyx_v_reference, PyObject *__pyx_v_candidate, int __pyx_v_max_ngram, CYTHON_UNUSED int __pyx_skip_dispatch) {
+  __pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc __pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   Py_ssize_t __pyx_t_2;
   int __pyx_t_3;
-  PyObject *__pyx_t_4 = NULL;
-  std::vector<__pyx_t_4bleu_DTYPE>  __pyx_t_5;
+  __pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("bleu_sentence", 0);
 
@@ -2321,20 +2342,10 @@ static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_sentence(PyObject *_
  *     assert isinstance(reference[0], str), \
  *         "reference should be a list of strings"
  */
-    __pyx_t_4 = PyList_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_INCREF(__pyx_int_0);
-    __Pyx_GIVEREF(__pyx_int_0);
-    PyList_SET_ITEM(__pyx_t_4, 0, __pyx_int_0);
-    __Pyx_INCREF(__pyx_int_0);
-    __Pyx_GIVEREF(__pyx_int_0);
-    PyList_SET_ITEM(__pyx_t_4, 1, __pyx_int_0);
-    __Pyx_INCREF(__pyx_int_0);
-    __Pyx_GIVEREF(__pyx_int_0);
-    PyList_SET_ITEM(__pyx_t_4, 2, __pyx_int_0);
-    __pyx_t_5 = __pyx_convert_vector_from_py___pyx_t_4bleu_DTYPE(__pyx_t_4); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 81, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_r = __pyx_t_5;
+    __pyx_t_4.f0 = 0.0;
+    __pyx_t_4.f1 = 0.0;
+    __pyx_t_4.f2 = 0.0;
+    __pyx_r = __pyx_t_4;
     goto __pyx_L0;
 
     /* "bleu.pyx":80
@@ -2359,10 +2370,10 @@ static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_sentence(PyObject *_
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
       __PYX_ERR(0, 82, __pyx_L1_error)
     }
-    __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_reference, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = PyString_Check(__pyx_t_4); 
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_reference, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 82, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_1 = PyString_Check(__pyx_t_5); 
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (unlikely(!(__pyx_t_1 != 0))) {
       PyErr_SetObject(PyExc_AssertionError, __pyx_kp_s_reference_should_be_a_list_of_st);
       __PYX_ERR(0, 82, __pyx_L1_error)
@@ -2383,10 +2394,10 @@ static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_sentence(PyObject *_
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
       __PYX_ERR(0, 84, __pyx_L1_error)
     }
-    __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_candidate, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = PyString_Check(__pyx_t_4); 
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_candidate, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 84, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_1 = PyString_Check(__pyx_t_5); 
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (unlikely(!(__pyx_t_1 != 0))) {
       PyErr_SetObject(PyExc_AssertionError, __pyx_kp_s_candidate_should_be_a_list_of_st);
       __PYX_ERR(0, 84, __pyx_L1_error)
@@ -2401,32 +2412,32 @@ static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_sentence(PyObject *_
  * 
  * 
  */
-  __pyx_t_4 = PyList_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = PyList_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __Pyx_INCREF(__pyx_v_reference);
   __Pyx_GIVEREF(__pyx_v_reference);
-  PyList_SET_ITEM(__pyx_t_4, 0, __pyx_v_reference);
+  PyList_SET_ITEM(__pyx_t_5, 0, __pyx_v_reference);
   __pyx_t_6 = PyList_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_candidate);
   __Pyx_GIVEREF(__pyx_v_candidate);
   PyList_SET_ITEM(__pyx_t_6, 0, __pyx_v_candidate);
-  __pyx_r = __pyx_f_4bleu_bleu_corpus(((PyObject*)__pyx_t_4), ((PyObject*)__pyx_t_6), __pyx_v_max_ngram, 0);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_r = __pyx_f_4bleu_bleu_corpus(((PyObject*)__pyx_t_5), ((PyObject*)__pyx_t_6), __pyx_v_max_ngram, 0);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   goto __pyx_L0;
 
   /* "bleu.pyx":51
  * 
  * 
- * cpdef vector[DTYPE] bleu_sentence(list reference,             # <<<<<<<<<<<<<<
+ * cpdef (DTYPE, DTYPE, DTYPE) bleu_sentence(list reference,             # <<<<<<<<<<<<<<
  *                                   list candidate,
  *                                   int max_ngram):
  */
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_WriteUnraisable("bleu.bleu_sentence", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __Pyx_pretend_to_initialize(&__pyx_r);
@@ -2520,7 +2531,7 @@ static PyObject *__pyx_pf_4bleu_6bleu_sentence(CYTHON_UNUSED PyObject *__pyx_sel
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("bleu_sentence", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py___pyx_t_4bleu_DTYPE(__pyx_f_4bleu_bleu_sentence(__pyx_v_reference, __pyx_v_candidate, __pyx_v_max_ngram, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert__to_py___pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc(__pyx_f_4bleu_bleu_sentence(__pyx_v_reference, __pyx_v_candidate, __pyx_v_max_ngram, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2540,13 +2551,13 @@ static PyObject *__pyx_pf_4bleu_6bleu_sentence(CYTHON_UNUSED PyObject *__pyx_sel
 /* "bleu.pyx":89
  * 
  * 
- * cpdef vector[DTYPE] bleu_corpus(list reference_corpus,             # <<<<<<<<<<<<<<
+ * cpdef (DTYPE, DTYPE, DTYPE) bleu_corpus(list reference_corpus,             # <<<<<<<<<<<<<<
  *                                 list candidate_corpus,
  *                                 int max_ngram):
  */
 
 static PyObject *__pyx_pw_4bleu_9bleu_corpus(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_corpus(PyObject *__pyx_v_reference_corpus, PyObject *__pyx_v_candidate_corpus, int __pyx_v_max_ngram, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static __pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc __pyx_f_4bleu_bleu_corpus(PyObject *__pyx_v_reference_corpus, PyObject *__pyx_v_candidate_corpus, int __pyx_v_max_ngram, CYTHON_UNUSED int __pyx_skip_dispatch) {
   std::vector<__pyx_t_4bleu_DTYPE>  __pyx_v_clipped_count;
   std::vector<__pyx_t_4bleu_DTYPE>  __pyx_v_clip_norm;
   std::vector<std::string>  __pyx_v__reference;
@@ -2564,11 +2575,10 @@ static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_corpus(PyObject *__p
   std::vector<__pyx_t_4bleu_DTYPE>  __pyx_v_norm_counts;
   __pyx_t_4bleu_DTYPE __pyx_v_precision;
   __pyx_t_4bleu_DTYPE __pyx_v_log_sum;
-  float __pyx_v_bp;
-  std::vector<__pyx_t_4bleu_DTYPE>  __pyx_v_corpus_score;
+  __pyx_t_4bleu_DTYPE __pyx_v_bp;
   PyObject *__pyx_v_c = NULL;
   PyObject *__pyx_v_n = NULL;
-  std::vector<__pyx_t_4bleu_DTYPE>  __pyx_r;
+  __pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc __pyx_r;
   __Pyx_RefNannyDeclarations
   Py_ssize_t __pyx_t_1;
   Py_ssize_t __pyx_t_2;
@@ -2593,6 +2603,7 @@ static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_corpus(PyObject *__p
   std::vector<__pyx_t_4bleu_DTYPE> ::iterator __pyx_t_21;
   double __pyx_t_22;
   double __pyx_t_23;
+  __pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc __pyx_t_24;
   __Pyx_RefNannySetupContext("bleu_corpus", 0);
 
   /* "bleu.pyx":122
@@ -3313,7 +3324,7 @@ static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_corpus(PyObject *__p
  *         for count in norm_counts:
  *             log_sum += <DTYPE> log(count)/max_ngram             # <<<<<<<<<<<<<<
  *         precision = exp(log_sum)
- *     cdef float bp = exp(min(1.-(<DTYPE> ref_len/cand_len), 0))
+ *     cdef DTYPE bp = exp(min(1.-(<DTYPE> ref_len/cand_len), 0))
  */
       __pyx_t_22 = __pyx_PyFloat_AsDouble(__pyx_v_count); if (unlikely((__pyx_t_22 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 162, __pyx_L1_error)
       __pyx_t_15 = ((__pyx_t_4bleu_DTYPE)log(__pyx_t_22));
@@ -3336,7 +3347,7 @@ static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_corpus(PyObject *__p
  *         for count in norm_counts:
  *             log_sum += <DTYPE> log(count)/max_ngram
  *         precision = exp(log_sum)             # <<<<<<<<<<<<<<
- *     cdef float bp = exp(min(1.-(<DTYPE> ref_len/cand_len), 0))
+ *     cdef DTYPE bp = exp(min(1.-(<DTYPE> ref_len/cand_len), 0))
  *     # corpus_score[0]: precision, corpus_score[1]: bp, corpus_score[2]: bleu
  */
     __pyx_v_precision = exp(__pyx_v_log_sum);
@@ -3353,9 +3364,9 @@ static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_corpus(PyObject *__p
   /* "bleu.pyx":164
  *             log_sum += <DTYPE> log(count)/max_ngram
  *         precision = exp(log_sum)
- *     cdef float bp = exp(min(1.-(<DTYPE> ref_len/cand_len), 0))             # <<<<<<<<<<<<<<
+ *     cdef DTYPE bp = exp(min(1.-(<DTYPE> ref_len/cand_len), 0))             # <<<<<<<<<<<<<<
  *     # corpus_score[0]: precision, corpus_score[1]: bp, corpus_score[2]: bleu
- *     cdef vector[DTYPE] corpus_score = [precision, bp, precision*bp]
+ *     # cdef vector[DTYPE] corpus_score = [precision, bp, precision*bp]
  */
   __pyx_t_18 = 0;
   if (unlikely(__pyx_v_cand_len == 0)) {
@@ -3370,57 +3381,23 @@ static std::vector<__pyx_t_4bleu_DTYPE>  __pyx_f_4bleu_bleu_corpus(PyObject *__p
   }
   __pyx_v_bp = exp(__pyx_t_23);
 
-  /* "bleu.pyx":166
- *     cdef float bp = exp(min(1.-(<DTYPE> ref_len/cand_len), 0))
- *     # corpus_score[0]: precision, corpus_score[1]: bp, corpus_score[2]: bleu
- *     cdef vector[DTYPE] corpus_score = [precision, bp, precision*bp]             # <<<<<<<<<<<<<<
- *     corpus_score.reserve(3)
- *     return corpus_score
- */
-  __pyx_t_8 = PyFloat_FromDouble(__pyx_v_precision); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 166, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_9 = PyFloat_FromDouble(__pyx_v_bp); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 166, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_6 = PyFloat_FromDouble((__pyx_v_precision * __pyx_v_bp)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 166, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_10 = PyList_New(3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 166, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_GIVEREF(__pyx_t_8);
-  PyList_SET_ITEM(__pyx_t_10, 0, __pyx_t_8);
-  __Pyx_GIVEREF(__pyx_t_9);
-  PyList_SET_ITEM(__pyx_t_10, 1, __pyx_t_9);
-  __Pyx_GIVEREF(__pyx_t_6);
-  PyList_SET_ITEM(__pyx_t_10, 2, __pyx_t_6);
-  __pyx_t_8 = 0;
-  __pyx_t_9 = 0;
-  __pyx_t_6 = 0;
-  __pyx_t_5 = __pyx_convert_vector_from_py___pyx_t_4bleu_DTYPE(__pyx_t_10); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 166, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_v_corpus_score = __pyx_t_5;
-
-  /* "bleu.pyx":167
- *     # corpus_score[0]: precision, corpus_score[1]: bp, corpus_score[2]: bleu
- *     cdef vector[DTYPE] corpus_score = [precision, bp, precision*bp]
- *     corpus_score.reserve(3)             # <<<<<<<<<<<<<<
- *     return corpus_score
- * 
- */
-  __pyx_v_corpus_score.reserve(3);
-
   /* "bleu.pyx":168
- *     cdef vector[DTYPE] corpus_score = [precision, bp, precision*bp]
- *     corpus_score.reserve(3)
- *     return corpus_score             # <<<<<<<<<<<<<<
+ *     # cdef vector[DTYPE] corpus_score = [precision, bp, precision*bp]
+ *     # corpus_score.reserve(3)
+ *     return (precision, bp, precision*bp)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_r = __pyx_v_corpus_score;
+  __pyx_t_24.f0 = __pyx_v_precision;
+  __pyx_t_24.f1 = __pyx_v_bp;
+  __pyx_t_24.f2 = (__pyx_v_precision * __pyx_v_bp);
+  __pyx_r = __pyx_t_24;
   goto __pyx_L0;
 
   /* "bleu.pyx":89
  * 
  * 
- * cpdef vector[DTYPE] bleu_corpus(list reference_corpus,             # <<<<<<<<<<<<<<
+ * cpdef (DTYPE, DTYPE, DTYPE) bleu_corpus(list reference_corpus,             # <<<<<<<<<<<<<<
  *                                 list candidate_corpus,
  *                                 int max_ngram):
  */
@@ -3533,7 +3510,7 @@ static PyObject *__pyx_pf_4bleu_8bleu_corpus(CYTHON_UNUSED PyObject *__pyx_self,
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("bleu_corpus", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py___pyx_t_4bleu_DTYPE(__pyx_f_4bleu_bleu_corpus(__pyx_v_reference_corpus, __pyx_v_candidate_corpus, __pyx_v_max_ngram, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert__to_py___pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc(__pyx_f_4bleu_bleu_corpus(__pyx_v_reference_corpus, __pyx_v_candidate_corpus, __pyx_v_max_ngram, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3576,6 +3553,7 @@ static std::vector<std::vector<__pyx_t_4bleu_DTYPE> >  __pyx_f_4bleu_bleu_points
   PyObject *__pyx_t_8 = NULL;
   PyObject *__pyx_t_9 = NULL;
   PyObject *(*__pyx_t_10)(PyObject *);
+  std::vector<__pyx_t_4bleu_DTYPE>  __pyx_t_11;
   __Pyx_RefNannySetupContext("bleu_points", 0);
 
   /* "bleu.pyx":204
@@ -3679,8 +3657,8 @@ static std::vector<std::vector<__pyx_t_4bleu_DTYPE> >  __pyx_f_4bleu_bleu_points
  *     sentence_score.reserve(3)
  *     # Iterate through corpus
  *     for reference, candidate in zip(reference_corpus, candidate_corpus):             # <<<<<<<<<<<<<<
- *         sentence_score = bleu_sentence(reference, candidate, max_ngram)
- *         points.push_back(sentence_score)
+ *         sentence_score = list(bleu_sentence(reference, candidate, max_ngram))
+ *         points.push_back([sentence_score[0],
  */
   __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -3787,22 +3765,72 @@ static std::vector<std::vector<__pyx_t_4bleu_DTYPE> >  __pyx_f_4bleu_bleu_points
     /* "bleu.pyx":217
  *     # Iterate through corpus
  *     for reference, candidate in zip(reference_corpus, candidate_corpus):
- *         sentence_score = bleu_sentence(reference, candidate, max_ngram)             # <<<<<<<<<<<<<<
- *         points.push_back(sentence_score)
- *     return points
+ *         sentence_score = list(bleu_sentence(reference, candidate, max_ngram))             # <<<<<<<<<<<<<<
+ *         points.push_back([sentence_score[0],
+ *                           sentence_score[1],
  */
     if (!(likely(PyList_CheckExact(__pyx_v_reference))||((__pyx_v_reference) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_reference)->tp_name), 0))) __PYX_ERR(0, 217, __pyx_L1_error)
     if (!(likely(PyList_CheckExact(__pyx_v_candidate))||((__pyx_v_candidate) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_candidate)->tp_name), 0))) __PYX_ERR(0, 217, __pyx_L1_error)
-    __pyx_v_sentence_score = __pyx_f_4bleu_bleu_sentence(((PyObject*)__pyx_v_reference), ((PyObject*)__pyx_v_candidate), __pyx_v_max_ngram, 0);
+    __pyx_t_5 = __pyx_convert__to_py___pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc(__pyx_f_4bleu_bleu_sentence(((PyObject*)__pyx_v_reference), ((PyObject*)__pyx_v_candidate), __pyx_v_max_ngram, 0)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 217, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_8 = PySequence_List(__pyx_t_5); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 217, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_11 = __pyx_convert_vector_from_py___pyx_t_4bleu_DTYPE(__pyx_t_8); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 217, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __pyx_v_sentence_score = __pyx_t_11;
 
     /* "bleu.pyx":218
  *     for reference, candidate in zip(reference_corpus, candidate_corpus):
- *         sentence_score = bleu_sentence(reference, candidate, max_ngram)
- *         points.push_back(sentence_score)             # <<<<<<<<<<<<<<
+ *         sentence_score = list(bleu_sentence(reference, candidate, max_ngram))
+ *         points.push_back([sentence_score[0],             # <<<<<<<<<<<<<<
+ *                           sentence_score[1],
+ *                           sentence_score[2]])
+ */
+    __pyx_t_8 = PyFloat_FromDouble((__pyx_v_sentence_score[0])); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 218, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+
+    /* "bleu.pyx":219
+ *         sentence_score = list(bleu_sentence(reference, candidate, max_ngram))
+ *         points.push_back([sentence_score[0],
+ *                           sentence_score[1],             # <<<<<<<<<<<<<<
+ *                           sentence_score[2]])
  *     return points
  */
+    __pyx_t_5 = PyFloat_FromDouble((__pyx_v_sentence_score[1])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 219, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+
+    /* "bleu.pyx":220
+ *         points.push_back([sentence_score[0],
+ *                           sentence_score[1],
+ *                           sentence_score[2]])             # <<<<<<<<<<<<<<
+ *     return points
+ */
+    __pyx_t_7 = PyFloat_FromDouble((__pyx_v_sentence_score[2])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 220, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+
+    /* "bleu.pyx":218
+ *     for reference, candidate in zip(reference_corpus, candidate_corpus):
+ *         sentence_score = list(bleu_sentence(reference, candidate, max_ngram))
+ *         points.push_back([sentence_score[0],             # <<<<<<<<<<<<<<
+ *                           sentence_score[1],
+ *                           sentence_score[2]])
+ */
+    __pyx_t_9 = PyList_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 218, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_GIVEREF(__pyx_t_8);
+    PyList_SET_ITEM(__pyx_t_9, 0, __pyx_t_8);
+    __Pyx_GIVEREF(__pyx_t_5);
+    PyList_SET_ITEM(__pyx_t_9, 1, __pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_7);
+    PyList_SET_ITEM(__pyx_t_9, 2, __pyx_t_7);
+    __pyx_t_8 = 0;
+    __pyx_t_5 = 0;
+    __pyx_t_7 = 0;
+    __pyx_t_11 = __pyx_convert_vector_from_py___pyx_t_4bleu_DTYPE(__pyx_t_9); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 218, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     try {
-      __pyx_v_points.push_back(__pyx_v_sentence_score);
+      __pyx_v_points.push_back(__pyx_t_11);
     } catch(...) {
       __Pyx_CppExn2PyErr();
       __PYX_ERR(0, 218, __pyx_L1_error)
@@ -3812,15 +3840,15 @@ static std::vector<std::vector<__pyx_t_4bleu_DTYPE> >  __pyx_f_4bleu_bleu_points
  *     sentence_score.reserve(3)
  *     # Iterate through corpus
  *     for reference, candidate in zip(reference_corpus, candidate_corpus):             # <<<<<<<<<<<<<<
- *         sentence_score = bleu_sentence(reference, candidate, max_ngram)
- *         points.push_back(sentence_score)
+ *         sentence_score = list(bleu_sentence(reference, candidate, max_ngram))
+ *         points.push_back([sentence_score[0],
  */
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "bleu.pyx":219
- *         sentence_score = bleu_sentence(reference, candidate, max_ngram)
- *         points.push_back(sentence_score)
+  /* "bleu.pyx":221
+ *                           sentence_score[1],
+ *                           sentence_score[2]])
  *     return points             # <<<<<<<<<<<<<<
  */
   __pyx_r = __pyx_v_points;
@@ -6901,6 +6929,27 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
         return _PyLong_FromByteArray(bytes, sizeof(long),
                                      little, !is_unsigned);
     }
+}
+
+/* ToPyCTupleUtility */
+static PyObject* __pyx_convert__to_py___pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc(__pyx_ctuple_d48e7____dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__and___dunderpyx_t_4bleu_DTYPE__etc value) {
+    PyObject* item = NULL;
+    PyObject* result = PyTuple_New(3);
+    if (!result) goto bad;
+        item = PyFloat_FromDouble(value.f0);
+        if (!item) goto bad;
+        PyTuple_SET_ITEM(result, 0, item);
+        item = PyFloat_FromDouble(value.f1);
+        if (!item) goto bad;
+        PyTuple_SET_ITEM(result, 1, item);
+        item = PyFloat_FromDouble(value.f2);
+        if (!item) goto bad;
+        PyTuple_SET_ITEM(result, 2, item);
+    return result;
+bad:
+    Py_XDECREF(item);
+    Py_XDECREF(result);
+    return NULL;
 }
 
 /* CIntFromPy */
