@@ -4,8 +4,8 @@ import shutil
 
 
 # compile pyx files for testing
-string = "python setup.py develop"
-os.system(string)
+# string = "python setup.py develop"
+# os.system(string)
 
 
 # packages to test
