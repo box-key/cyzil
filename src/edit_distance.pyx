@@ -95,7 +95,7 @@ cpdef (DTYPE, DTYPE) edit_distance_corpus(list reference_corpus,
 
     Returns
     -------
-    corpus_score : list
+    corpus_score : tuple
         A list of 2 decimal values: the first value is the mean edit distance
         between reference corpus and candidate corpus and the second value is
         the mean normalized edit distance, i.e. the sum of edit distance for
@@ -131,11 +131,14 @@ cpdef (DTYPE, DTYPE) edit_distance_corpus(list reference_corpus,
     cdef DTYPE edit_distance = 0.0
     cdef DTYPE normalized_edit_distance = 0.0
     cdef int sentence_score
+    cdef int length
     # Iterate through corpus
     for reference, candidate in zip(reference_corpus, candidate_corpus):
         sentence_score = edit_distance_sentence(reference, candidate)
         edit_distance += sentence_score
-        normalized_edit_distance += (<float> sentence_score/len(reference))
+        # avoid division by 0
+        if len(reference) > 0:
+          normalized_edit_distance += (<float> sentence_score/len(reference))
     return (edit_distance/len(reference_corpus),
             normalized_edit_distance/len(reference_corpus))
 
@@ -194,6 +197,10 @@ cpdef vector[vector[DTYPE]] edit_distance_points(list reference_corpus,
     # Iterate through corpus
     for reference, candidate in zip(reference_corpus, candidate_corpus):
         point_score = edit_distance_sentence(reference, candidate)
-        normalized_score = <DTYPE> point_score/len(reference)
+        # avoid division by 0
+        if len(reference) > 0:
+          normalized_score = <DTYPE> point_score/len(reference)
+        else:
+          normalized_score = 0
         points.push_back([<DTYPE> point_score, normalized_score])
     return points
