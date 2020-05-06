@@ -1,13 +1,20 @@
+from cython.operator cimport dereference as deref
+
 from libcpp.vector cimport vector
 from libcpp.string cimport string
 from libcpp.unordered_map cimport unordered_map
+
 from libc.math cimport exp
 from libc.math cimport log
 
 
 ctypedef float DTYPE
+# left side is order and right side is count
+# ctypedef (int, int) Ngram
+cdef struct Ngram:
+    int count
+    int order
 # Delimitor to store a ngram token
-# Used to count ngram order
 cdef string DELIM = ' '
 
 
@@ -16,43 +23,54 @@ cpdef vector[string] _list2vec(list data):
     return _data
 
 
-cpdef unordered_map[string, int] _get_overlap(unordered_map[string, int] &m1,
-                                              unordered_map[string, int] &m2):
-    cdef unordered_map[string, int] overlap
+cpdef unordered_map[string, Ngram] _get_overlap(
+                                       unordered_map[string, Ngram] &m1,
+                                       unordered_map[string, Ngram] &m2):
+    cdef unordered_map[string, Ngram] overlap
+    cdef int c1
     cdef int c2
+    cdef Ngram min_count
+    cdef Ngram temp
     # store elements appear both in m1 and m2
-    for t1, c1 in m1:
+    for t1, n1 in m1:
         # if a token exists in both m1 and m2, store the smallest count
         if (m2.find(t1) != m2.end()):
-            c2 = m2[t1]
-            overlap[t1] = min(c1, c2)
+            c1 = n1['count']
+            # m2[t1] returns reference to a Ngram object,
+            # so dereference is required
+            temp = m2[t1]
+            c2 = temp.count
+            min_count =  Ngram(min(c1, c2), n1['order'])
+            overlap[t1] = min_count
     return overlap
 
 
-cpdef unordered_map[string, int] _count_ngram(const vector[string] &sentence,
-                                              int max_order):
+cpdef unordered_map[string, Ngram] _count_ngram(const vector[string] &sentence,
+                                                int max_order):
     cdef int size = sentence.size()
-    cdef unordered_map[string, int] ngram_counts
-    cdef string ngram
+    cdef unordered_map[string, Ngram] ngram_counts
+    cdef string ngram_token
+    cdef Ngram ngram_temp
     # Iterate through all orders of ngram
     for order in range(1, max_order + 1):
         # count each order of ngram tokens
         for i in range(0, size - order + 1):
-            ngram = ''
+            ngram_token = ''
             for token in sentence[i : i+order]:
-                ngram = ngram + token + DELIM
+                ngram_token = ngram_token + token + DELIM
             # if ngram token doesn't exist, initialize slot with 1
             # otherwise, increment the count of ngram token
-            if (ngram_counts.find(ngram) == ngram_counts.end()):
-                ngram_counts[ngram] = 1
+            if (ngram_counts.find(ngram_token) == ngram_counts.end()):
+                ngram_temp = Ngram(1, order)
+                ngram_counts[ngram_token] = ngram_temp
             else:
-                ngram_counts[ngram] += 1
+                ngram_counts[ngram_token].count += 1
     return ngram_counts
 
 
 cpdef (DTYPE, DTYPE, DTYPE) bleu_sentence(list reference,
-                                  list candidate,
-                                  int max_ngram):
+                                          list candidate,
+                                          int max_ngram):
     """Computes sentence-level BLEU score.
 
     Parameters
@@ -89,8 +107,8 @@ cpdef (DTYPE, DTYPE, DTYPE) bleu_sentence(list reference,
 
 
 cpdef (DTYPE, DTYPE, DTYPE) bleu_corpus(list reference_corpus,
-                                list candidate_corpus,
-                                int max_ngram):
+                                        list candidate_corpus,
+                                        int max_ngram):
     """Computes corpus-level BLEU score.
 
     Parameters
@@ -133,11 +151,12 @@ cpdef (DTYPE, DTYPE, DTYPE) bleu_corpus(list reference_corpus,
     clip_norm.reserve(max_ngram)
     cdef vector[string] _reference
     cdef vector[string] _candidate
-    cdef unordered_map[string, int] reference_count
-    cdef unordered_map[string, int] candidate_count
-    cdef unordered_map[string, int] overlap
+    cdef unordered_map[string, Ngram] reference_count
+    cdef unordered_map[string, Ngram] candidate_count
+    cdef unordered_map[string, Ngram] overlap
     cdef long ref_len = 0
     cdef long cand_len = 0
+    cdef Ngram temp
     # Iterate through corpus
     for reference, candidate in zip(reference_corpus, candidate_corpus):
         _reference = _list2vec(reference)
@@ -150,9 +169,9 @@ cpdef (DTYPE, DTYPE, DTYPE) bleu_corpus(list reference_corpus,
         # store overlaps
         overlap = _get_overlap(reference_count, candidate_count)
         # count the occurence of ngram tokens
-        for ngram_token, count in overlap:
-            # -2 as offset, e.g. 'I am '.split() = ['I', 'am', '']
-            clipped_count[len(ngram_token.split(DELIM)) - 2] += count
+        for _, ngram in overlap:
+            temp = ngram
+            clipped_count[temp.order-1] += temp.count
         for order in range(max_ngram):
             clip_norm[order] += max(_candidate.size() - order, 0)
     cdef DTYPE norm_count
