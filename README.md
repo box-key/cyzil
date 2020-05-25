@@ -117,3 +117,7 @@ cyzil.edit_distance_corpus([reference], [candidate])
 
 cyzil.edit_distance_points([reference], [candidate])
 ```
+
+License
+-------
+This project is licensed under Apache 2.0.
